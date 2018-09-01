@@ -23,6 +23,12 @@ class Sortable extends Component {
     };
     sortable = null;
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.options.disabled !== this.props.options.disabled) {
+            this.sortable.option('disabled', this.props.options.disabled);
+        }
+    }
+
     componentDidMount() {
         const options = { ...this.props.options };
 
@@ -89,9 +95,6 @@ class Sortable extends Component {
     }
     render() {
         const { tag: Component, ...props } = this.props;
-
-        delete props.options;
-        delete props.onChange;
 
         return (
             <Component {...props} />
